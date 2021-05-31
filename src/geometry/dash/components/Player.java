@@ -1,12 +1,12 @@
 package geometry.dash.components;
 
+import geometry.dash.LevelScene;
 import geometry.dash.engine.Component;
 import geometry.dash.engine.GameObject;
 import geometry.dash.engine.KeyDetector;
-import geometry.dash.engine.Window;
+import geometry.dash.Window;
 import geometry.dash.strucrures.AssetPool;
 import geometry.dash.utils.CollisionDetectors;
-import geometry.dash.utils.Constants;
 
 import static geometry.dash.utils.Constants.*;
 
@@ -19,7 +19,7 @@ public class Player extends Component {
     private final String playerImagePath;
     public boolean onGround = true;
     private final KeyDetector keyDetector;
-    private final boolean active;
+    public boolean active;
 
     public Player(String playerImagePath, Color color, KeyDetector keyDetector, boolean active) {
         this.playerImagePath = playerImagePath;
@@ -79,7 +79,7 @@ public class Player extends Component {
     public void die() {
         gameObject.getTransform().getPosition().x = PLAYER_SPAWN_X;
         gameObject.getTransform().getPosition().y = PLAYER_SPAWN_Y;
-        Window.getWindow().getCurrentScene().getCamera().position.x = 0;
+        ((LevelScene)Window.getWindow().getCurrentScene()).getCamera().position.x = 0;
     }
 
     @Override

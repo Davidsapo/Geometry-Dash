@@ -1,8 +1,8 @@
 package geometry.dash.components;
 
+import geometry.dash.LevelScene;
 import geometry.dash.engine.*;
 import geometry.dash.engine.Component;
-import geometry.dash.engine.Window;
 import geometry.dash.utils.Vector;
 
 import java.awt.*;
@@ -16,23 +16,25 @@ public class BlockBuilder extends Component {
     private String blockImage;
     private Bounds bounds;
     private Camera camera;
+    private LevelScene levelScene;
     private MouseDetector mouseDetector;
     private ArrayList<Vector> blockedPositions;
 
-    public BlockBuilder(Camera camera, MouseDetector mouseDetector) {
+    public BlockBuilder(Camera camera, MouseDetector mouseDetector, LevelScene levelScene) {
         this.camera = camera;
         this.mouseDetector = mouseDetector;
         blockedPositions = new ArrayList<>();
+        this.levelScene = levelScene;
     }
 
-    public BlockBuilder(String blockImage, Camera camera, MouseDetector mouseDetector) {
-        this(camera, mouseDetector);
+    public BlockBuilder(String blockImage, Camera camera, MouseDetector mouseDetector, LevelScene levelScene) {
+        this(camera, mouseDetector,levelScene);
         this.blockImage = blockImage;
         blockedPositions = new ArrayList<>();
     }
 
-    public BlockBuilder(String blockImage, Bounds bounds, Camera camera, MouseDetector mouseDetector) {
-        this(blockImage, camera, mouseDetector);
+    public BlockBuilder(String blockImage, Bounds bounds, Camera camera, MouseDetector mouseDetector, LevelScene levelScene) {
+        this(blockImage, camera, mouseDetector,levelScene);
         this.blockImage = blockImage;
         this.bounds = bounds;
 
@@ -55,7 +57,7 @@ public class BlockBuilder extends Component {
                     block.addComponent(bounds.copy());
                     block.hasCollision=true;
                 }
-                Window.getWindow().getCurrentScene().addGameObject(block);
+                levelScene.addGameObject(block);
             }
         }
     }

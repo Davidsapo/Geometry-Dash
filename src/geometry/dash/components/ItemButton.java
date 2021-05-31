@@ -2,7 +2,7 @@ package geometry.dash.components;
 
 import geometry.dash.engine.Component;
 import geometry.dash.engine.MouseDetector;
-import geometry.dash.engine.Window;
+import geometry.dash.Window;
 import geometry.dash.strucrures.AssetPool;
 
 import static geometry.dash.utils.Constants.*;

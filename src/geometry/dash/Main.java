@@ -1,6 +1,5 @@
 package geometry.dash;
 
-import geometry.dash.engine.Window;
 import geometry.dash.utils.Launcher;
 
 public class Main {

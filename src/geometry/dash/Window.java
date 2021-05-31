@@ -1,25 +1,19 @@
-package geometry.dash.engine;
+package geometry.dash;
 
-import geometry.dash.LevelEditorScene;
-import geometry.dash.SceneFactory;
-import geometry.dash.utils.Constants;
+import geometry.dash.engine.KeyDetector;
+import geometry.dash.engine.MouseDetector;
+import geometry.dash.engine.Scene;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.sql.Connection;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import static geometry.dash.utils.Constants.*;
 
 public class Window extends JFrame implements Runnable {
 
     private static Window window = null;
-
-    private Date date = new Date();
 
     private MouseDetector mouseDetector;
     private KeyDetector keyDetector;
@@ -80,21 +74,21 @@ public class Window extends JFrame implements Runnable {
         long time;
         long dt;
         long sleep;
-
         while (isRunning) {
-            lastTime = System.currentTimeMillis();
+            lastTime = System.nanoTime();
             update();
-            sleep(1);
-            time = System.currentTimeMillis()-1;
-            dt = time - lastTime;
+            time = System.nanoTime();
+            dt = TimeUnit.MILLISECONDS.convert(time - lastTime, TimeUnit.NANOSECONDS);
 
             sleep = SLEEP_TIME - dt;
             if (sleep < 0)
                 sleep = 0;
             sleep(sleep);
-            //System.out.println(dt);
+            //System.out.println(sleep);
+
         }
     }
+
 
     private void sleep(long sec) {
         try {

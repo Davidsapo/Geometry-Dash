@@ -1,8 +1,9 @@
 package geometry.dash.components;
 
+import geometry.dash.LevelScene;
 import geometry.dash.engine.Camera;
 import geometry.dash.engine.Component;
-import geometry.dash.engine.Window;
+import geometry.dash.Window;
 import geometry.dash.utils.Constants;
 
 import static geometry.dash.utils.Constants.*;
@@ -16,7 +17,7 @@ public class Grid extends Component {
     private int tileHeight;
 
     public Grid() {
-        camera = Window.getWindow().getCurrentScene().getCamera();
+        camera = ((LevelScene)Window.getWindow().getCurrentScene()).getCamera();
         tileWidth = Constants.TILE_WIDTH;
         tileHeight = Constants.TILE_HEIGHT;
     }
