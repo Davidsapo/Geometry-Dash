@@ -31,7 +31,7 @@ public class Grid extends Component {
     @Override
     public void draw(Graphics2D graphics2D) {
         graphics2D.setStroke(new BasicStroke(1));
-        graphics2D.setColor(Color.DARK_GRAY);
+        graphics2D.setColor(Color.BLACK);
 
         int camPosX = (int)camera.position.x;
         int x = ((camPosX / tileWidth) * tileWidth) - camPosX;

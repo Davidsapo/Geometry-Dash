@@ -20,9 +20,10 @@ public class LevelEditorScene extends LevelScene {
     public void init() {
         super.init();
         player.getTransform().getPosition().x = Constants.CAMERA_OFFSET_X;
+        supportComponents.addComponent(new CameraController(camera, Window.getWindow().getMouseDetector()));
+        supportComponents.addComponent(parallaxBackground);
         supportComponents.addComponent( new Grid(camera));
         supportComponents.addComponent(ground);
-        supportComponents.addComponent(new CameraController(camera, Window.getWindow().getMouseDetector()));
         supportComponents.addComponent(new BlockBuilder(camera, Window.getWindow().getMouseDetector(), this));
         supportComponents.addComponent(new EditorPane(AssetPool.getSpriteSheet("assets\\blocks\\blocks.png")));
     }
@@ -54,11 +55,8 @@ public class LevelEditorScene extends LevelScene {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        graphics2D.setColor(Color.blue);
-        graphics2D.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-
-        renderer.render(graphics2D);
         supportComponents.draw(graphics2D);
+        renderer.render(graphics2D);
     }
 
     public LevelData getLevelData() {

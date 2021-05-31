@@ -84,7 +84,7 @@ public class Window extends JFrame implements Runnable {
             if (sleep < 0)
                 sleep = 0;
             sleep(sleep);
-            //System.out.println(sleep);
+            //System.out.println(dt);
 
         }
     }

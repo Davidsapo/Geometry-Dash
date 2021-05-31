@@ -10,7 +10,7 @@ public final class Constants {
 
     public static final int PLAYER_WIDTH = 50;
     public static final int PLAYER_HEIGHT = 50;
-    public static final int PLAYER_SPAWN_X = -50;
+    public static final int PLAYER_SPAWN_X = 0;
     public static final int PLAYER_SPAWN_Y = SCREEN_HEIGHT - 150 - PLAYER_HEIGHT;
 
     public static final int GROUND_HEIGHT = 150;
@@ -38,10 +38,10 @@ public final class Constants {
     public static final double ACCELERATION = 0.85;
     public static final int PLAYER_SPEED = 7;
     public static final double ROTATION = 0.094;
-
     public static final int SLEEP_TIME = 16;
-
     public static final int OVERLAP_POSSIBLE = 10;
+
+    public static final double BACKGROUND_SPEED = 6.5;
 
 
     private Constants() {

@@ -3,6 +3,7 @@ package geometry.dash;
 import geometry.dash.components.*;
 import geometry.dash.engine.GameObject;
 import geometry.dash.engine.Scene;
+import geometry.dash.engine.Transform;
 import geometry.dash.utils.Constants;
 import geometry.dash.utils.LevelData;
 import geometry.dash.utils.Vector;
@@ -24,10 +25,12 @@ public class LevelRunScene extends LevelScene {
     public void init() {
         super.init();
         supportComponents.addComponent(ground);
+        supportComponents.addComponent(parallaxBackground);
         player.addComponent(new RigidBody(new Vector(PLAYER_SPEED, 0)));
         player.addComponent(new BoxBounds(PLAYER_WIDTH, PLAYER_HEIGHT));
-        player.hasCollision = true;
         playerSupportComponent  = player.getComponent(Player.class);
+        parallaxBackground.movable = true;
+        player.hasCollision = true;
         playerSupportComponent.active = true;
     }
 
@@ -55,8 +58,6 @@ public class LevelRunScene extends LevelScene {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        graphics2D.setColor(Color.blue);
-        graphics2D.fillRect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
         supportComponents.draw(graphics2D);
         renderer.render(graphics2D);
     }
