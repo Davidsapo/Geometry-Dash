@@ -3,10 +3,10 @@ package geometry.dash;
 import geometry.dash.engine.KeyDetector;
 import geometry.dash.engine.MouseDetector;
 import geometry.dash.engine.Scene;
+import geometry.dash.scenes.SceneFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.ZonedDateTime;
 import java.util.concurrent.TimeUnit;
 
 import static geometry.dash.utils.Constants.*;
@@ -54,6 +54,7 @@ public class Window extends JFrame implements Runnable {
 
 
     public void update() {
+        mouseDetector.layer = 1;
         scene.update();
         draw(getGraphics());
     }

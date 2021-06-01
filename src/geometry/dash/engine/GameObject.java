@@ -6,6 +6,9 @@ import geometry.dash.utils.CollisionDetectors;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class GameObject implements Serializable {
 
@@ -43,6 +46,7 @@ public class GameObject implements Serializable {
     public void addComponent(Component component) {
         components.add(component);
         component.setGameObject(this);
+        Collections.sort(components);
     }
 
     public <T extends Component> T getComponent(Class<T> clazz) {

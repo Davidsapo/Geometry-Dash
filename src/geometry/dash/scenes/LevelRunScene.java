@@ -1,12 +1,11 @@
-package geometry.dash;
+package geometry.dash.scenes;
 
+import geometry.dash.Window;
 import geometry.dash.components.*;
 import geometry.dash.engine.GameObject;
 import geometry.dash.engine.Scene;
-import geometry.dash.engine.Transform;
-import geometry.dash.utils.Constants;
 import geometry.dash.utils.LevelData;
-import geometry.dash.utils.Vector;
+import geometry.dash.engine.Vector;
 
 import static geometry.dash.utils.Constants.*;
 
@@ -24,12 +23,10 @@ public class LevelRunScene extends LevelScene {
     @Override
     public void init() {
         super.init();
-        supportComponents.addComponent(ground);
-        supportComponents.addComponent(parallaxBackground);
         player.addComponent(new RigidBody(new Vector(PLAYER_SPEED, 0)));
         player.addComponent(new BoxBounds(PLAYER_WIDTH, PLAYER_HEIGHT));
         playerSupportComponent  = player.getComponent(Player.class);
-        parallaxBackground.movable = true;
+        firstLayerComponents.getComponent(ParallaxBackground.class).movable = true;
         player.hasCollision = true;
         playerSupportComponent.active = true;
     }
@@ -37,17 +34,18 @@ public class LevelRunScene extends LevelScene {
     @Override
     public void update() {
         playerSupportComponent.onGround = false;
+        firstLayerComponents.update();
         for (GameObject object : gameObjects) {
             object.update();
             playerSupportComponent.resolveCollision(object);
         }
-        supportComponents.update();
         player.update();
+        thirdLayerComponents.update();
 
         if (player.getTransform().getPosition().x - camera.position.x > CAMERA_OFFSET_X)
             camera.position.x = player.getTransform().getPosition().x - CAMERA_OFFSET_X;
         {
-        if (Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_SHIFT)) {
+        if (geometry.dash.Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_SHIFT)) {
             Scene scene = SceneFactory.createScene(1);
             scene.init();
             Window.getWindow().setScene(scene);
@@ -58,8 +56,9 @@ public class LevelRunScene extends LevelScene {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        supportComponents.draw(graphics2D);
-        renderer.render(graphics2D);
+        firstLayerComponents.draw(graphics2D);
+        secondLayerRender.render(graphics2D);
+        thirdLayerComponents.draw(graphics2D);
     }
 
     public void setLevelData(LevelData levelData) {

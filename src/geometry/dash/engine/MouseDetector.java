@@ -16,6 +16,8 @@ public class MouseDetector extends MouseAdapter {
     public boolean pressed;
     public boolean dragged;
 
+    public int layer = 1;
+
     @Override
     public void mousePressed(MouseEvent e) {
         pressed = true;

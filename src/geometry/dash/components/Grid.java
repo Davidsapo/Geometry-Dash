@@ -1,6 +1,6 @@
 package geometry.dash.components;
 
-import geometry.dash.LevelScene;
+import geometry.dash.scenes.LevelScene;
 import geometry.dash.engine.Camera;
 import geometry.dash.engine.Component;
 import geometry.dash.Window;

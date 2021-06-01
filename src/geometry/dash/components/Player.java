@@ -1,6 +1,6 @@
 package geometry.dash.components;
 
-import geometry.dash.LevelScene;
+import geometry.dash.scenes.LevelScene;
 import geometry.dash.engine.Component;
 import geometry.dash.engine.GameObject;
 import geometry.dash.engine.KeyDetector;

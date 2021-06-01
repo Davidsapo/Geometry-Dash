@@ -1,5 +1,6 @@
-package geometry.dash;
+package geometry.dash.scenes;
 
+import geometry.dash.Window;
 import geometry.dash.components.*;
 import geometry.dash.engine.GameObject;
 import geometry.dash.strucrures.AssetPool;
@@ -20,30 +21,29 @@ public class LevelEditorScene extends LevelScene {
     public void init() {
         super.init();
         player.getTransform().getPosition().x = Constants.CAMERA_OFFSET_X;
-        supportComponents.addComponent(new CameraController(camera, Window.getWindow().getMouseDetector()));
-        supportComponents.addComponent(parallaxBackground);
-        supportComponents.addComponent( new Grid(camera));
-        supportComponents.addComponent(ground);
-        supportComponents.addComponent(new BlockBuilder(camera, Window.getWindow().getMouseDetector(), this));
-        supportComponents.addComponent(new EditorPane(AssetPool.getSpriteSheet("assets\\blocks\\blocks.png")));
+        firstLayerComponents.addComponent(new CameraController(camera, geometry.dash.Window.getWindow().getMouseDetector()));
+        firstLayerComponents.addComponent(new Grid(camera).initLayer(2));
+        thirdLayerComponents.addComponent(new BlockBuilder(camera, geometry.dash.Window.getWindow().getMouseDetector(), this).initLayer(2));
+        thirdLayerComponents.addComponent(new EditorPane(AssetPool.getSpriteSheet("assets\\blocks\\blocks.png")).initLayer(1));
     }
 
     @Override
     public void update() {
+        firstLayerComponents.update();
         for (GameObject object : gameObjects)
             object.update();
         player.update();
-        supportComponents.update();
+        thirdLayerComponents.update();
         {
-            if (Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_ENTER)) {
+            if (geometry.dash.Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_ENTER)) {
                 LevelRunScene scene = (LevelRunScene) SceneFactory.createScene(0);
                 scene.init();
                 scene.setLevelData(getLevelData());
-                Window.getWindow().setScene(scene);
+                geometry.dash.Window.getWindow().setScene(scene);
 
             }
 
-            if (Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_F1)) {
+            if (geometry.dash.Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_F1)) {
                 serialize("test.lvl");
             }
             if (Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_F2)) {
@@ -55,12 +55,13 @@ public class LevelEditorScene extends LevelScene {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        supportComponents.draw(graphics2D);
-        renderer.render(graphics2D);
+        firstLayerComponents.draw(graphics2D);
+        secondLayerRender.render(graphics2D);
+        thirdLayerComponents.draw(graphics2D);
     }
 
     public LevelData getLevelData() {
-        return new LevelData(gameObjects, supportComponents.getComponent(BlockBuilder.class).getBlockedPositions());
+        return new LevelData(gameObjects, thirdLayerComponents.getComponent(BlockBuilder.class).getBlockedPositions());
     }
 
     public void serialize(String fileName) {
@@ -77,8 +78,9 @@ public class LevelEditorScene extends LevelScene {
             LevelData levelData = (LevelData) (stream.readObject());
             for (GameObject object : levelData.gameObjects)
                 addGameObject(object);
-            supportComponents.getComponent(BlockBuilder.class).setBlockedPositions(levelData.positions);
+            thirdLayerComponents.getComponent(BlockBuilder.class).setBlockedPositions(levelData.positions);
         } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
             System.exit(0);
         }
     }

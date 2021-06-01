@@ -46,20 +46,22 @@ public class ItemButton extends Component {
 
     @Override
     public void update() {
-        if (!selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
-            int mouseX = mouseDetector.xPos;
-            int mouseY = mouseDetector.yPos;
-            if (mouseX >= xPosButton && mouseX <= xPosButton + BUTTON_SIZE &&
-                    mouseY >= yPosButton && mouseY <= yPosButton + BUTTON_SIZE) {
-                selected = true;
-                for (ItemButton button : parent.getButtons()) {
-                    if (button != this)
-                        button.selected = false;
-                }
-                BlockBuilder blockBuilder = parent.getParentGameObject().getComponent(BlockBuilder.class);
-                blockBuilder.setBlockImage(element);
-                blockBuilder.setBounds(bounds);
+        int mouseX = mouseDetector.xPos;
+        int mouseY = mouseDetector.yPos;
+        boolean onButton = (mouseX >= xPosButton && mouseX <= xPosButton + BUTTON_SIZE &&
+                mouseY >= yPosButton && mouseY <= yPosButton + BUTTON_SIZE);
+        if (onButton)
+            mouseDetector.layer = 2;
+
+        if (onButton && !selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
+            selected = true;
+            for (ItemButton button : parent.getButtons()) {
+                if (button != this)
+                    button.selected = false;
             }
+            BlockBuilder blockBuilder = parent.getParentGameObject().getComponent(BlockBuilder.class);
+            blockBuilder.setBlockImage(element);
+            blockBuilder.setBounds(bounds);
         }
     }
 

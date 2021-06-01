@@ -1,4 +1,4 @@
-package geometry.dash;
+package geometry.dash.scenes;
 
 import geometry.dash.engine.Scene;
 

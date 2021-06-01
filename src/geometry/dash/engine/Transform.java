@@ -1,7 +1,5 @@
 package geometry.dash.engine;
 
-import geometry.dash.utils.Vector;
-
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 

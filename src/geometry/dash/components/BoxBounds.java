@@ -6,7 +6,7 @@ import static geometry.dash.utils.CollisionDetectors.*;
 
 import geometry.dash.utils.CollisionDetectors;
 import geometry.dash.utils.Constants;
-import geometry.dash.utils.Vector;
+import geometry.dash.engine.Vector;
 
 public class BoxBounds extends Bounds {
 

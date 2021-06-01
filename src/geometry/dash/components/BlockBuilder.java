@@ -1,9 +1,9 @@
 package geometry.dash.components;
 
-import geometry.dash.LevelScene;
+import geometry.dash.scenes.LevelScene;
 import geometry.dash.engine.*;
 import geometry.dash.engine.Component;
-import geometry.dash.utils.Vector;
+import geometry.dash.engine.Vector;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -28,13 +28,13 @@ public class BlockBuilder extends Component {
     }
 
     public BlockBuilder(String blockImage, Camera camera, MouseDetector mouseDetector, LevelScene levelScene) {
-        this(camera, mouseDetector,levelScene);
+        this(camera, mouseDetector, levelScene);
         this.blockImage = blockImage;
         blockedPositions = new ArrayList<>();
     }
 
     public BlockBuilder(String blockImage, Bounds bounds, Camera camera, MouseDetector mouseDetector, LevelScene levelScene) {
-        this(blockImage, camera, mouseDetector,levelScene);
+        this(blockImage, camera, mouseDetector, levelScene);
         this.blockImage = blockImage;
         this.bounds = bounds;
 
@@ -42,9 +42,9 @@ public class BlockBuilder extends Component {
 
     @Override
     public void draw(Graphics2D graphics2D) {
-        if (blockImage != null && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
-            int camXPos = (int)camera.position.x;
-            int camYPos = (int)camera.position.y + TOP_BORDER_HEIGHT;
+        if (blockImage != null && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1 && mouseDetector.layer == 1) {
+            int camXPos = (int) camera.position.x;
+            int camYPos = (int) camera.position.y + TOP_BORDER_HEIGHT;
             int x = ((camXPos + mouseDetector.xPos) / PLAYER_WIDTH) * PLAYER_WIDTH - camXPos;
             int y = ((camYPos + mouseDetector.yPos) / TILE_HEIGHT) * TILE_HEIGHT - camYPos;
 
@@ -55,7 +55,7 @@ public class BlockBuilder extends Component {
                 block.addComponent(new Sprite(blockImage));
                 if (bounds != null) {
                     block.addComponent(bounds.copy());
-                    block.hasCollision=true;
+                    block.hasCollision = true;
                 }
                 levelScene.addGameObject(block);
             }

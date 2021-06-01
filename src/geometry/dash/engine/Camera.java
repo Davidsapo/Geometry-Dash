@@ -1,7 +1,5 @@
 package geometry.dash.engine;
 
-import geometry.dash.utils.Vector;
-
 public class Camera {
 
     public final Vector position;

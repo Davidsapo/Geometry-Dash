@@ -1,6 +1,7 @@
 package geometry.dash.utils;
 
 import geometry.dash.engine.GameObject;
+import geometry.dash.engine.Vector;
 
 import java.io.Serializable;
 import java.util.ArrayList;

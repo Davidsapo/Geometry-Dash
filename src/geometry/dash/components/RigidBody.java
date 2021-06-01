@@ -2,8 +2,7 @@ package geometry.dash.components;
 
 import geometry.dash.engine.Component;
 import geometry.dash.utils.Constants;
-import geometry.dash.utils.Constants.*;
-import geometry.dash.utils.Vector;
+import geometry.dash.engine.Vector;
 
 public class RigidBody extends Component {
 

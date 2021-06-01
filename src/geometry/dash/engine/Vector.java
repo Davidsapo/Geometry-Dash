@@ -1,4 +1,4 @@
-package geometry.dash.utils;
+package geometry.dash.engine;
 
 import java.io.Serializable;
 import java.util.Objects;

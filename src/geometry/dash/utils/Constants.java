@@ -25,8 +25,8 @@ public final class Constants {
     public static final int CAMERA_TOP_LIMIT = -GROUND_HEIGHT;
     public static final int CAMERA_LEFT_LIMIT = 0;
 
-    public static final int BUTTONS_PER_ROW = 7;
-    public static final int BUTTONS_PER_COLUMN = 1;
+    public static final int BUTTONS_PER_ROW = 4;
+    public static final int BUTTONS_PER_COLUMN = 2;
     public static final int TOTAL_BUTTONS = BUTTONS_PER_ROW * BUTTONS_PER_COLUMN;
     public static final int BUTTON_SIZE = 70;
     public static final int BUTTON_SPACING = 10;
