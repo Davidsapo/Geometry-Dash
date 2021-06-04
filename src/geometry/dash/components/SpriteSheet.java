@@ -1,10 +1,12 @@
 package geometry.dash.components;
 
 import geometry.dash.strucrures.AssetPool;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class SpriteSheet {
+public class SpriteSheet implements Iterable<String> {
 
     private final String path;
     private final ArrayList<String> subImagePaths;
@@ -46,5 +48,25 @@ public class SpriteSheet {
 
     public String getPath() {
         return path;
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new Iterator();
+    }
+
+    public class Iterator implements java.util.Iterator<String> {
+
+        int current = 0;
+
+        @Override
+        public boolean hasNext() {
+            return current < subImagePaths.size();
+        }
+
+        @Override
+        public String next() {
+            return subImagePaths.get(current++);
+        }
     }
 }

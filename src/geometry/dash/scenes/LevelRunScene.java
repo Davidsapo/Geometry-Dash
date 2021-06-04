@@ -29,11 +29,13 @@ public class LevelRunScene extends LevelScene {
         firstLayerComponents.getComponent(ParallaxBackground.class).movable = true;
         player.hasCollision = true;
         playerSupportComponent.active = true;
+
     }
 
     @Override
     public void update() {
         playerSupportComponent.onGround = false;
+        playerSupportComponent.jumpAvailable = false;
         firstLayerComponents.update();
         for (GameObject object : gameObjects) {
             object.update();
@@ -64,5 +66,12 @@ public class LevelRunScene extends LevelScene {
     public void setLevelData(LevelData levelData) {
         for (GameObject object : levelData.gameObjects)
             addGameObject(object);
+
+        playerSupportComponent.setPlayerImagePath(levelData.playerImage);
+        playerSupportComponent.setShipImagePath(levelData.shipImage);
+        firstLayerComponents.getComponent(ParallaxBackground.class).setBackgroundImage(levelData.backgroundImage);
+        firstLayerComponents.getComponent(Ground.class).setGroundImagePath(levelData.groundImage);
+        firstLayerComponents.getComponent(ParallaxBackground.class).setColor(levelData.backgroundColor);
+        firstLayerComponents.getComponent(Ground.class).setGroundColor(levelData.groundColor);
     }
 }

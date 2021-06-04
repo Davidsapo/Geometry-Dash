@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
 
 public class ParallaxBackground extends Component {
 
-    private final BufferedImage backgroundImage;
+    private  String backgroundImage;
     private final Camera camera;
-    private final Color color;
+    private  Color color;
     public boolean movable;
     private final int backGroundWidth;
     private final int backGroundHeight;
@@ -27,11 +27,11 @@ public class ParallaxBackground extends Component {
         this.camera = camera;
         this.color = color;
         this.movable = movable;
-        backgroundImage = AssetPool.getImage(imagePath);
-        backGroundWidth = backgroundImage.getWidth();
-        backGroundHeight = backgroundImage.getHeight();
+        backgroundImage = imagePath;
+        backGroundWidth = AssetPool.getImage(backgroundImage).getWidth();
+        backGroundHeight = AssetPool.getImage(backgroundImage).getHeight();
         xPos = 0;
-        yPos = SCREEN_HEIGHT - (GROUND_HEIGHT + backgroundImage.getHeight());
+        yPos = SCREEN_HEIGHT - (GROUND_HEIGHT + AssetPool.getImage(backgroundImage).getHeight());
         xDrawPos = (int)xPos;
         yDrawPos = yPos;
     }
@@ -55,8 +55,24 @@ public class ParallaxBackground extends Component {
         graphics2D.setColor(color);
         graphics2D.fillRect(0, yDrawPos, SCREEN_WIDTH, backGroundHeight);
         while (xDrawPos <= SCREEN_WIDTH) {
-            graphics2D.drawImage(backgroundImage, xDrawPos, yDrawPos, null);
+            graphics2D.drawImage(AssetPool.getImage(backgroundImage), xDrawPos, yDrawPos, null);
             xDrawPos += backGroundWidth;
         }
+    }
+
+    public void setBackgroundImage(String backgroundImage) {
+        this.backgroundImage = backgroundImage;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public String  getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

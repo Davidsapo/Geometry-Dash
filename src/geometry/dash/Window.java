@@ -45,7 +45,7 @@ public class Window extends JFrame implements Runnable {
         addMouseListener(mouseDetector);
         addKeyListener(keyDetector);
         addMouseMotionListener(mouseDetector);
-        scene = SceneFactory.createScene(1);
+        scene = SceneFactory.createScene(3);
         scene.init();
 
         bufferingImage = createImage(getWidth(), getHeight());
@@ -85,7 +85,7 @@ public class Window extends JFrame implements Runnable {
             if (sleep < 0)
                 sleep = 0;
             sleep(sleep);
-            //System.out.println(dt);
+            System.out.println(dt);
 
         }
     }

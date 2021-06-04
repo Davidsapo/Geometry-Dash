@@ -1,6 +1,9 @@
 package geometry.dash.engine;
 
+import geometry.dash.Window;
+import geometry.dash.components.Bounds;
 import geometry.dash.components.BoxBounds;
+import geometry.dash.scenes.LevelScene;
 import geometry.dash.utils.CollisionDetectors;
 
 import java.awt.*;
@@ -32,8 +35,8 @@ public class GameObject implements Serializable {
     }
 
     public CollisionDetectors checkCollisionWith(GameObject object) {
-        if (object.visible && object.hasCollision && visible && hasCollision && this!= object)
-            return getComponent(BoxBounds.class).getCollision(object.getComponent(BoxBounds.class));
+        if (object.visible && object.hasCollision && visible && hasCollision && this != object)
+            return getComponent(Bounds.class).getCollision(object.getComponent(BoxBounds.class));
         return CollisionDetectors.NO_COLLISION;
     }
 
@@ -67,5 +70,13 @@ public class GameObject implements Serializable {
 
     public Transform getTransform() {
         return transform;
+    }
+
+    public void delete() {
+        ((LevelScene) (Window.getWindow().getCurrentScene())).deleteObject(this);
+    }
+
+    public void setTransform(Transform transform) {
+        this.transform = transform;
     }
 }

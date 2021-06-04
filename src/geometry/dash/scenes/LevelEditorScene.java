@@ -13,18 +13,32 @@ import java.io.*;
 
 public class LevelEditorScene extends LevelScene {
 
-    public LevelEditorScene(String name) {
+    private static LevelEditorScene scene;
+    private boolean init = true;
+
+    private LevelEditorScene(String name) {
         super(name);
+    }
+
+    public static LevelEditorScene getInstance() {
+        if (scene == null) {
+            scene = new LevelEditorScene("");
+        }
+        return scene;
     }
 
     @Override
     public void init() {
-        super.init();
-        player.getTransform().getPosition().x = Constants.CAMERA_OFFSET_X;
-        firstLayerComponents.addComponent(new CameraController(camera, geometry.dash.Window.getWindow().getMouseDetector()));
-        firstLayerComponents.addComponent(new Grid(camera).initLayer(2));
-        thirdLayerComponents.addComponent(new BlockBuilder(camera, geometry.dash.Window.getWindow().getMouseDetector(), this).initLayer(2));
-        thirdLayerComponents.addComponent(new EditorPane(AssetPool.getSpriteSheet("assets\\blocks\\blocks.png")).initLayer(1));
+        System.out.println(init);
+        if (init) {
+            super.init();
+            player.getTransform().getPosition().x = Constants.CAMERA_OFFSET_X;
+            firstLayerComponents.addComponent(new CameraController(camera, Window.getWindow().getMouseDetector()));
+            firstLayerComponents.addComponent(new Grid(camera).initLayer(2));
+            thirdLayerComponents.addComponent(new BlockBuilder(camera, Window.getWindow().getMouseDetector(), this).initLayer(2));
+            thirdLayerComponents.addComponent(editorPane);
+        }
+        init = false;
     }
 
     @Override
@@ -61,7 +75,17 @@ public class LevelEditorScene extends LevelScene {
     }
 
     public LevelData getLevelData() {
-        return new LevelData(gameObjects, thirdLayerComponents.getComponent(BlockBuilder.class).getBlockedPositions());
+        LevelData levelData = new LevelData();
+        levelData.gameObjects = gameObjects;
+        levelData.positions = thirdLayerComponents.getComponent(BlockBuilder.class).getBlockedPositions();
+        levelData.playerImage = player.getComponent(Player.class).getPlayerImagePath();
+        levelData.shipImage = player.getComponent(Player.class).getShipImagePath();
+        levelData.backgroundImage = firstLayerComponents.getComponent(ParallaxBackground.class).getBackgroundImage();
+        levelData.groundImage = firstLayerComponents.getComponent(Ground.class).getGroundImagePath();
+        levelData.backgroundColor = firstLayerComponents.getComponent(ParallaxBackground.class).getColor();
+        levelData.groundColor = firstLayerComponents.getComponent(Ground.class).getGroundColor();
+
+        return levelData;
     }
 
     public void serialize(String fileName) {

@@ -1,5 +1,7 @@
 package geometry.dash.utils;
 
+import java.awt.*;
+
 public final class Constants {
 
     public static final String WINDOW_TITLE = "GEOMETRY DASH";
@@ -21,20 +23,16 @@ public final class Constants {
     public static final int TILE_WIDTH = 50;
     public static final int TILE_HEIGHT = 50;
 
-    public static final int CAMERA_BUTTON_LIMIT = 0;
-    public static final int CAMERA_TOP_LIMIT = -GROUND_HEIGHT;
+    public static final int CAMERA_BUTTON_LIMIT = 50;
+    public static final int CAMERA_TOP_LIMIT = -(1024 - GROUND_HEIGHT);
     public static final int CAMERA_LEFT_LIMIT = 0;
 
-    public static final int BUTTONS_PER_ROW = 4;
-    public static final int BUTTONS_PER_COLUMN = 2;
-    public static final int TOTAL_BUTTONS = BUTTONS_PER_ROW * BUTTONS_PER_COLUMN;
-    public static final int BUTTON_SIZE = 70;
-    public static final int BUTTON_SPACING = 10;
-    public static final int FIRST_BUTTON_POSITION_X = (SCREEN_WIDTH - BUTTONS_PER_ROW * (BUTTON_SIZE + BUTTON_SPACING)) / 2;
-    public static final int FIRST_BUTTON_POSITION_Y = SCREEN_HEIGHT - (BUTTONS_PER_COLUMN * (BUTTON_SIZE + BUTTON_SPACING)) - 8;
-
     public static final int GRAVITY = 18;
+    public static final int SHIP_GRAVITY = 5;
+    public static final int SHIP_FORCE = -5;
+    public static final double SHIP_ACCELERATION = 0.5;
     public static final int JUMP_FORCE = -13;
+    public static final int JUMPER_FORCE = -18;
     public static final double ACCELERATION = 0.85;
     public static final int PLAYER_SPEED = 7;
     public static final double ROTATION = 0.094;
@@ -42,6 +40,19 @@ public final class Constants {
     public static final int OVERLAP_POSSIBLE = 10;
 
     public static final double BACKGROUND_SPEED = 6.5;
+
+    public static final Color BLUE_BACKGROUND = new Color(44, 61, 245);
+    public static final Color BLUE_GROUND = new Color(3, 18, 192);
+
+    public static final Color GREEN_BACKGROUND = new Color(0, 255, 0);
+    public static final Color GREEN_GROUND = new Color(0, 205, 0);
+
+    public static final Color YELLOW_BACKGROUND = new Color(255, 255, 0);
+    public static final Color YELLOW_GROUND = new Color(205, 205, 0);
+
+    public static final Color RED_BACKGROUND = new Color(255, 0, 0);
+    public static final Color RED_GROUND = new Color(205, 0, 0);
+
 
 
     private Constants() {
