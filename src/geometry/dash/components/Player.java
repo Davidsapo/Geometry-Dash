@@ -26,7 +26,7 @@ public class Player extends Component {
     public boolean onRocket;
     private GameObject lastPortal;
 
-    public Player(String playerImagePath, String  shipImagePath, KeyDetector keyDetector, boolean active) {
+    public Player(String playerImagePath, String shipImagePath, KeyDetector keyDetector, boolean active) {
         this.playerImagePath = playerImagePath;
         this.shipImagePath = shipImagePath;
         currentImage = playerImagePath;
@@ -85,7 +85,7 @@ public class Player extends Component {
                 gameObject.getComponent(RigidBody.class).velocity.y = JUMPER_FORCE;
                 onGround = false;
             } else if (detector == CollisionDetectors.PORTAL) {
-                if (lastPortal !=null && object == lastPortal )
+                if (lastPortal != null && object == lastPortal)
                     return;
                 if (!onRocket)
                     flyMode();
@@ -95,9 +95,14 @@ public class Player extends Component {
             } else if (detector == CollisionDetectors.FLY_JUMPER) {
                 jumpAvailable = true;
             } else {
-                die();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 normalMode();
                 lastPortal = null;
+                die();
             }
         }
     }
@@ -107,9 +112,9 @@ public class Player extends Component {
         gameObject.getComponent(RigidBody.class).flyMode = false;
         gameObject.setTransform(new Transform(gameObject.getTransform().getPosition(), 50, 50));
         this.currentImage = playerImagePath;
-        ((BoxBounds)(gameObject.getComponent(Bounds.class))).ship = false;
-        ((BoxBounds)(gameObject.getComponent(Bounds.class))).halfWidth = 25;
-        ((BoxBounds)(gameObject.getComponent(Bounds.class))).halfHeight = 25;
+        ((BoxBounds) (gameObject.getComponent(Bounds.class))).ship = false;
+        ((BoxBounds) (gameObject.getComponent(Bounds.class))).halfWidth = 25;
+        ((BoxBounds) (gameObject.getComponent(Bounds.class))).halfHeight = 25;
     }
 
     private void flyMode() {
@@ -117,9 +122,9 @@ public class Player extends Component {
         gameObject.getComponent(RigidBody.class).flyMode = true;
         gameObject.setTransform(new Transform(gameObject.getTransform().getPosition(), 100, 50));
         this.currentImage = shipImagePath;
-        ((BoxBounds)(gameObject.getComponent(Bounds.class))).ship = true;
-        ((BoxBounds)(gameObject.getComponent(Bounds.class))).halfWidth = 45;
-        ((BoxBounds)(gameObject.getComponent(Bounds.class))).halfHeight = 20;
+        ((BoxBounds) (gameObject.getComponent(Bounds.class))).ship = true;
+        ((BoxBounds) (gameObject.getComponent(Bounds.class))).halfWidth = 45;
+        ((BoxBounds) (gameObject.getComponent(Bounds.class))).halfHeight = 20;
 
     }
 

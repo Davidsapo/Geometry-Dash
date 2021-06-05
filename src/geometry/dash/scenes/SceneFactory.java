@@ -10,6 +10,8 @@ public class SceneFactory {
                 return new LevelRunScene("Level scene");
             case 1:
                 return LevelEditorScene.getInstance();
+            case 2:
+            return MainScene.getInstance();
 
             case 3:
                 return new StartScene("");

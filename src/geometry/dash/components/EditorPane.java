@@ -3,7 +3,10 @@ package geometry.dash.components;
 import geometry.dash.Window;
 import geometry.dash.engine.Component;
 import geometry.dash.engine.MouseDetector;
+import geometry.dash.engine.Scene;
+import geometry.dash.scenes.LevelEditorScene;
 import geometry.dash.scenes.LevelScene;
+import geometry.dash.scenes.SceneFactory;
 import geometry.dash.strucrures.AssetPool;
 import geometry.dash.utils.Constants;
 
@@ -23,7 +26,7 @@ public class EditorPane extends Component {
     public static final int BUTTON_SPACING = 10;
     public static final int FIRST_BUTTON_POSITION_X = (SCREEN_WIDTH - BUTTONS_PER_ROW * (BUTTON_SIZE + BUTTON_SPACING)) / 2 - 170;
     public static final int FIRST_BUTTON_POSITION_Y = SCREEN_HEIGHT - (BUTTONS_PER_COLUMN * (BUTTON_SIZE + BUTTON_SPACING)) - 8;
-    public static final int FIRST_BIG_BUTTON_POSITION_X = FIRST_BUTTON_POSITION_X + (BUTTON_SIZE + BUTTON_SPACING) * BUTTONS_PER_ROW +5;
+    public static final int FIRST_BIG_BUTTON_POSITION_X = FIRST_BUTTON_POSITION_X + (BUTTON_SIZE + BUTTON_SPACING) * BUTTONS_PER_ROW + 5;
     public static final int FIRST_BIG_BUTTON_POSITION_Y = FIRST_BUTTON_POSITION_Y;
 
     private final BufferedImage SMALL_BUTTON_IMAGE;
@@ -97,8 +100,8 @@ public class EditorPane extends Component {
             this.element = element;
             this.bounds = bounds;
 
-            xPosButton = FIRST_BIG_BUTTON_POSITION_X + ((buttonIndex-1) * (BIG_BUTTON_SIZE + BUTTON_SPACING));
-            yPosButton = FIRST_BIG_BUTTON_POSITION_Y ;
+            xPosButton = FIRST_BIG_BUTTON_POSITION_X + ((buttonIndex - 1) * (BIG_BUTTON_SIZE + BUTTON_SPACING));
+            yPosButton = FIRST_BIG_BUTTON_POSITION_Y;
 
             xPosElement = xPosButton + (BIG_BUTTON_SIZE - bounds.width) / 2;
 
@@ -147,7 +150,7 @@ public class EditorPane extends Component {
 
     public class SmallItemButton extends Button {
 
-        private  String element;
+        private String element;
         private final Bounds bounds;
 
         private final int xPosButton;
@@ -181,7 +184,7 @@ public class EditorPane extends Component {
             if (onButton && !selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
                 selected = true;
                 for (Button button : buttons) {
-                    if ( button != this) {
+                    if (button != this) {
                         button.selected = false;
                     }
                 }
@@ -203,7 +206,7 @@ public class EditorPane extends Component {
 
     public class DellItemButton extends Button {
 
-        private  String element;
+        private String element;
 
         private final int xPosButton;
         private final int yPosButton;
@@ -230,7 +233,7 @@ public class EditorPane extends Component {
             if (onButton && !selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
                 selected = true;
                 for (Button button : buttons) {
-                    if ( button != this) {
+                    if (button != this) {
                         button.selected = false;
                     }
                 }
@@ -251,7 +254,7 @@ public class EditorPane extends Component {
 
     public class RotateItemButton extends Button {
 
-        private  String element;
+        private String element;
 
         private final int xPosButton;
         private final int yPosButton;
@@ -278,7 +281,7 @@ public class EditorPane extends Component {
             if (onButton && !selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
                 selected = true;
                 for (Button button : buttons) {
-                    if ( button != this) {
+                    if (button != this) {
                         button.selected = false;
                     }
                 }
@@ -297,7 +300,7 @@ public class EditorPane extends Component {
         }
     }
 
-    public class ModeButton extends Button{
+    public class ModeButton extends Button {
 
         private final int xPosButton;
         private final int yPosButton;
@@ -311,7 +314,7 @@ public class EditorPane extends Component {
         Color backgroundColor;
         Color groundColor;
 
-        public ModeButton(String buttonImage, String playerImage, String shipImage, String backgroundImage, String groundImage, Color backgroundColor, Color groundColor ) {
+        public ModeButton(String buttonImage, String playerImage, String shipImage, String backgroundImage, String groundImage, Color backgroundColor, Color groundColor) {
             this.buttonImage = AssetPool.getImage(buttonImage);
             this.playerImage = playerImage;
             this.shipImage = shipImage;
@@ -341,12 +344,12 @@ public class EditorPane extends Component {
             if (onButton && !selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
                 selected = true;
                 for (Button button : modeButtons) {
-                    if ( button != this) {
+                    if (button != this) {
                         button.selected = false;
                     }
-                    LevelScene levelScene =(LevelScene)(Window.getWindow().getCurrentScene());
+                    LevelScene levelScene = (LevelScene) (Window.getWindow().getCurrentScene());
 
-                    Player player = ((LevelScene)(Window.getWindow().getCurrentScene())).getPlayer().getComponent(Player.class);
+                    Player player = ((LevelScene) (Window.getWindow().getCurrentScene())).getPlayer().getComponent(Player.class);
                     player.setPlayerImagePath(playerImage);
                     player.setShipImagePath(shipImage);
 
@@ -372,7 +375,7 @@ public class EditorPane extends Component {
 
     public class BackButton extends Button {
 
-        private  String element;
+        private String element;
 
         private final int xPosButton;
         private final int yPosButton;
@@ -387,6 +390,8 @@ public class EditorPane extends Component {
             buttons.add(this);
         }
 
+        boolean ready;
+        boolean pressed;
         @Override
         public void update() {
             int mouseX = mouseDetector.xPos;
@@ -396,23 +401,18 @@ public class EditorPane extends Component {
             if (onButton)
                 mouseDetector.layer = 2;
 
-            if (onButton && !selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
-                selected = true;
-                for (Button button : buttons) {
-                    if ( button != this) {
-                        button.selected = false;
-                    }
-                }
-
-                //TODO
-
+            if (ready && onButton&& !mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
+                Scene scene = SceneFactory.createScene(2);
+                scene.init();
+                Window.getWindow().setScene(scene);
             }
+            ready = onButton && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1;
         }
 
         @Override
         public void draw(Graphics2D graphics2D) {
             graphics2D.drawImage(AssetPool.getImage(element), xPosButton, yPosButton, null);
-            if (selected)
+            if (ready)
                 graphics2D.drawImage(SMALL_BUTTON_HOVER, xPosButton, yPosButton, null);
         }
     }
@@ -420,7 +420,7 @@ public class EditorPane extends Component {
 
     public class SaveButton extends Button {
 
-        private  String element;
+        private String element;
 
         private final int xPosButton;
         private final int yPosButton;
@@ -435,6 +435,7 @@ public class EditorPane extends Component {
             buttons.add(this);
         }
 
+        boolean ready;
         @Override
         public void update() {
             int mouseX = mouseDetector.xPos;
@@ -444,25 +445,18 @@ public class EditorPane extends Component {
             if (onButton)
                 mouseDetector.layer = 2;
 
-            if (onButton && !selected && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
-                selected = true;
-                for (Button button : buttons) {
-                    if ( button != this) {
-                        button.selected = false;
-                    }
-                }
-                //TODO
-
+            if (onButton && ready && !mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
+                AssetPool.levels.add(((LevelEditorScene) Window.getWindow().getCurrentScene()).getLevelData());
             }
+
+            ready = onButton && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1;
         }
 
         @Override
         public void draw(Graphics2D graphics2D) {
             graphics2D.drawImage(AssetPool.getImage(element), xPosButton, yPosButton, null);
-            if (selected)
+            if (ready)
                 graphics2D.drawImage(SMALL_BUTTON_HOVER, xPosButton, yPosButton, null);
         }
     }
-
-
 }

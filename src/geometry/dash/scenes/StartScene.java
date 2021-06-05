@@ -116,6 +116,7 @@ public class StartScene extends LevelScene {
 
         }
 
+        boolean ready = false;
 
         public void update() {
             int mouseX = mouseDetector.xPos;
@@ -136,13 +137,15 @@ public class StartScene extends LevelScene {
                 width *= 0.98;
             }
 
-            if (onButton && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
-                Scene scene = SceneFactory.createScene(1);
+            if (ready && onButton && !mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
+                Scene scene = SceneFactory.createScene(2);
                 scene.init();
                 Window.getWindow().setScene(scene);
-
             }
-            //transform.translate(xPosButton,yPosButton);
+
+            ready = onButton && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1;
+
+
         }
 
         public void draw(Graphics2D graphics2D) {

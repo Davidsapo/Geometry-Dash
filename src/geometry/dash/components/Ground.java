@@ -1,11 +1,13 @@
 package geometry.dash.components;
 
+import geometry.dash.Main;
 import geometry.dash.scenes.LevelEditorScene;
 import geometry.dash.scenes.LevelRunScene;
 import geometry.dash.engine.*;
 import geometry.dash.engine.Component;
 import geometry.dash.Window;
 import geometry.dash.scenes.LevelScene;
+import geometry.dash.scenes.MainScene;
 import geometry.dash.strucrures.AssetPool;
 import geometry.dash.utils.Constants;
 
@@ -33,7 +35,7 @@ public class Ground extends Component {
     public void update() {
         yGroundPos = Constants.SCREEN_HEIGHT - Constants.GROUND_HEIGHT - (int) camera.position.y;
         Scene scene = Window.getWindow().getCurrentScene();
-        if ((scene instanceof LevelEditorScene))
+        if ((scene instanceof LevelEditorScene || scene instanceof MainScene))
             return;
         GameObject player = ((LevelScene) scene).getPlayer();
         int playerHeight = player.getComponent(BoxBounds.class).height;

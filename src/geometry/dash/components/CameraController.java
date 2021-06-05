@@ -15,6 +15,7 @@ public class CameraController extends Component {
     private int prevXPos;
     private int prevYPos;
 
+    public boolean onlyX = false;
 
     public CameraController(Camera camera, MouseDetector mouseDetector) {
         this.camera = camera;
@@ -27,7 +28,9 @@ public class CameraController extends Component {
     public void update() {
         if (mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON3) {
             camera.moveXAsic(-(mouseDetector.xPos - prevXPos));
-            camera.moveYAsic(-(mouseDetector.yPos - prevYPos));
+            if (!onlyX) {
+                camera.moveYAsic(-(mouseDetector.yPos - prevYPos));
+            }
             if (camera.position.y > Constants.CAMERA_BUTTON_LIMIT)
                 camera.position.y = Constants.CAMERA_BUTTON_LIMIT;
             if (camera.position.y < Constants.CAMERA_TOP_LIMIT)

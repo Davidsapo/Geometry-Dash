@@ -9,6 +9,12 @@ public class Main {
         Window window = Window.getWindow();
         window.init();
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Thread thread = new Thread(window);
         thread.start();
 

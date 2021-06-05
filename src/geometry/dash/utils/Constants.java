@@ -12,13 +12,13 @@ public final class Constants {
 
     public static final int PLAYER_WIDTH = 50;
     public static final int PLAYER_HEIGHT = 50;
-    public static final int PLAYER_SPAWN_X = 0;
+    public static final int PLAYER_SPAWN_X = -200;
     public static final int PLAYER_SPAWN_Y = SCREEN_HEIGHT - 150 - PLAYER_HEIGHT;
 
     public static final int GROUND_HEIGHT = 150;
 
-    public static final int CAMERA_OFFSET_X = 300;
-    public static final int CAMERA_OFFSET_Y = SCREEN_HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT;
+    public static final int CAMERA_OFFSET_X = 400;
+    public static final int CAMERA_OFFSET_Y = 150;
 
     public static final int TILE_WIDTH = 50;
     public static final int TILE_HEIGHT = 50;

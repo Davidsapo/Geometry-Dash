@@ -16,7 +16,7 @@ import java.util.TreeSet;
 public class GameObject implements Serializable {
 
     private String name;
-    private ArrayList<Component> components;
+    public ArrayList<Component> components;
     private Transform transform;
     private boolean serializable = true;
     public boolean hasCollision;

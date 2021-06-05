@@ -16,6 +16,7 @@ public final class Launcher {
         AssetPool.downloadImageToPool("assets/blocks/fly_jumper.png");
         AssetPool.downloadImageToPool("assets/blocks/jumper.png");
         AssetPool.downloadImageToPool("assets/blocks/ship.png");
+        AssetPool.downloadImageToPool("assets/blocks/end_block.png");
 
         AssetPool.downloadImageToPool("assets\\buttons\\big_button.png");
         AssetPool.downloadImageToPool("assets\\buttons\\big_hover.png");
@@ -59,13 +60,29 @@ public final class Launcher {
         AssetPool.downloadImageToPool("assets\\title.png");
         AssetPool.downloadImageToPool("assets\\start.png");
         AssetPool.downloadImageToPool("assets\\sign.png");
+        AssetPool.downloadImageToPool("assets\\top.png");
+        AssetPool.downloadImageToPool("assets\\play.png");
+        AssetPool.downloadImageToPool("assets\\custom_button.png");
+        AssetPool.downloadImageToPool("assets\\left_corner.png");
+        AssetPool.downloadImageToPool("assets\\right_corner.png");
+        AssetPool.downloadImageToPool("assets\\close_button.png");
+        AssetPool.downloadImageToPool("assets\\level_completed.png");
+        AssetPool.downloadImageToPool("assets\\repeat.png");
+        AssetPool.downloadImageToPool("assets\\home.png");
 
-
-
-
+        AssetPool.downloadImageToPool("assets\\level_icons\\level1.png");
+        AssetPool.downloadImageToPool("assets\\level_icons\\level2.png");
+        AssetPool.downloadImageToPool("assets\\level_icons\\level3.png");
+        AssetPool.downloadImageToPool("assets\\level_icons\\level4.png");
+        AssetPool.downloadImageToPool("assets\\level_icons\\level5.png");
+        AssetPool.downloadImageToPool("assets\\level_icons\\level6.png");
+        AssetPool.downloadImageToPool("assets\\level_icons\\level7.png");
+        AssetPool.downloadImageToPool("assets\\level_icons\\create.png");
 
         SpriteSheet blocks = new SpriteSheet("assets\\blocks\\blocks.png", 50, 50, 1, 7);
         AssetPool.addSpriteSheet(blocks);
+
+        AssetPool.readLevelsFromFile();
     }
 }
 

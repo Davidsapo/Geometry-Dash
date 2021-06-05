@@ -23,6 +23,7 @@ public class ParallaxBackground extends Component {
     private int yDrawPos;
 
 
+
     public ParallaxBackground(String imagePath, Camera camera, Color color, boolean movable) {
         this.camera = camera;
         this.color = color;
@@ -33,21 +34,21 @@ public class ParallaxBackground extends Component {
         xPos = 0;
         yPos = SCREEN_HEIGHT - (GROUND_HEIGHT + AssetPool.getImage(backgroundImage).getHeight());
         xDrawPos = (int)xPos;
-        yDrawPos = yPos;
+        yDrawPos = 0;
     }
 
     @Override
     public void update() {
-        if (camera.position.y < yPos)
-            camera.position.y = yPos;
-        if (camera.position.x == 0)
-            xPos = 0;
-        int camPos = (int) camera.position.x - (int)xPos;
-        xDrawPos = (camPos / backGroundWidth) * backGroundWidth - camPos;
-        yDrawPos = yPos - (int) camera.position.y;
+        /*if (camera.position.y < yPos)
+            camera.position.y = yPos;*/
+            if (camera.position.x == 0)
+                xPos = 0;
+            int camPos = (int) camera.position.x - (int)xPos;
+            xDrawPos = (camPos / backGroundWidth) * backGroundWidth - camPos;
 
-        if (movable && camPos != 0)
-            xPos += BACKGROUND_SPEED;
+            if (movable && camPos != 0)
+                xPos += BACKGROUND_SPEED;
+
     }
 
     @Override
@@ -74,5 +75,9 @@ public class ParallaxBackground extends Component {
 
     public Color getColor() {
         return color;
+    }
+
+    public void setxDrawPos(int xDrawPos) {
+        this.xDrawPos = xDrawPos;
     }
 }

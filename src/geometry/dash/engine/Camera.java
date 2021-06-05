@@ -2,6 +2,7 @@ package geometry.dash.engine;
 
 public class Camera {
 
+
     public final Vector position;
 
     public Camera(Vector position) {

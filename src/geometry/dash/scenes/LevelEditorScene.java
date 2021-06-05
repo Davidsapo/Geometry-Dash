@@ -56,13 +56,6 @@ public class LevelEditorScene extends LevelScene {
                 geometry.dash.Window.getWindow().setScene(scene);
 
             }
-
-            if (geometry.dash.Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_F1)) {
-                serialize("test.lvl");
-            }
-            if (Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_F2)) {
-                deserialize("test.lvl");
-            }
         }
     }
 
@@ -88,24 +81,4 @@ public class LevelEditorScene extends LevelScene {
         return levelData;
     }
 
-    public void serialize(String fileName) {
-        try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(fileName))) {
-            stream.writeObject(getLevelData());
-        } catch (IOException ex) {
-            System.exit(0);
-        }
-
-    }
-
-    public void deserialize(String fileName) {
-        try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(fileName))) {
-            LevelData levelData = (LevelData) (stream.readObject());
-            for (GameObject object : levelData.gameObjects)
-                addGameObject(object);
-            thirdLayerComponents.getComponent(BlockBuilder.class).setBlockedPositions(levelData.positions);
-        } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-            System.exit(0);
-        }
-    }
 }

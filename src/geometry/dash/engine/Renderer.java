@@ -23,16 +23,18 @@ public class Renderer {
     public void render(Graphics2D graphics2D) {
         Transform transform;
 
-        transform = player.getTransform();
-        transform.moveXAsic(-camera.position.x);
-        transform.moveYAsic(-camera.position.y);
+        if (player!=null) {
+            transform = player.getTransform();
+            transform.moveXAsic(-camera.position.x);
+            transform.moveYAsic(-camera.position.y);
 
-        player.visible = transform.getPosition().x >= -100 && transform.getPosition().x <= Constants.SCREEN_WIDTH &&
-                transform.getPosition().y >= 0 && transform.getPosition().y <= Constants.SCREEN_HEIGHT;
+            player.visible = transform.getPosition().x >= -100 && transform.getPosition().x <= Constants.SCREEN_WIDTH &&
+                    transform.getPosition().y >= 0 && transform.getPosition().y <= Constants.SCREEN_HEIGHT;
 
-        player.draw(graphics2D);
-        transform.moveXAsic(camera.position.x);
-        transform.moveYAsic(camera.position.y);
+            player.draw(graphics2D);
+            transform.moveXAsic(camera.position.x);
+            transform.moveYAsic(camera.position.y);
+        }
 
         for (GameObject gameObject : gameObjects) {
             transform = gameObject.getTransform();

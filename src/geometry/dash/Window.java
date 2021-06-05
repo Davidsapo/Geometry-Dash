@@ -4,9 +4,12 @@ import geometry.dash.engine.KeyDetector;
 import geometry.dash.engine.MouseDetector;
 import geometry.dash.engine.Scene;
 import geometry.dash.scenes.SceneFactory;
+import geometry.dash.strucrures.AssetPool;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.concurrent.TimeUnit;
 
 import static geometry.dash.utils.Constants.*;
@@ -31,6 +34,13 @@ public class Window extends JFrame implements Runnable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println(AssetPool.levels.size());
+                AssetPool.writeLevelsToFile();
+            }
+        });
     }
 
     public static Window getWindow() {
@@ -75,6 +85,9 @@ public class Window extends JFrame implements Runnable {
         long time;
         long dt;
         long sleep;
+
+        long st = System.nanoTime();
+        long c = 0;
         while (isRunning) {
             lastTime = System.nanoTime();
             update();
@@ -85,8 +98,15 @@ public class Window extends JFrame implements Runnable {
             if (sleep < 0)
                 sleep = 0;
             sleep(sleep);
-            System.out.println(dt);
 
+
+            long curr = System.nanoTime();
+            c++;
+            if (TimeUnit.MILLISECONDS.convert(curr - st, TimeUnit.NANOSECONDS) > 1000) {
+                System.out.println(c);
+                c = 0;
+                st = curr;
+            }
         }
     }
 
