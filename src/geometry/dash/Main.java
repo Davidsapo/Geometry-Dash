@@ -4,17 +4,12 @@ import geometry.dash.utils.Launcher;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Launcher.downloadAssets();
         Window window = Window.getWindow();
         window.init();
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        Thread.sleep(1000);
+        window.setVisible(true);
         Thread thread = new Thread(window);
         thread.start();
 

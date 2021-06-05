@@ -33,7 +33,6 @@ public class Window extends JFrame implements Runnable {
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -41,6 +40,7 @@ public class Window extends JFrame implements Runnable {
                 AssetPool.writeLevelsToFile();
             }
         });
+        setVisible(true);
     }
 
     public static Window getWindow() {
@@ -57,7 +57,6 @@ public class Window extends JFrame implements Runnable {
         addMouseMotionListener(mouseDetector);
         scene = SceneFactory.createScene(3);
         scene.init();
-
         bufferingImage = createImage(getWidth(), getHeight());
         bufferingGraphics = (Graphics2D) bufferingImage.getGraphics();
     }

@@ -46,15 +46,16 @@ public class LevelRunScene extends LevelScene {
         if (camera.position.x + SCREEN_WIDTH < cameraRightLimit) {
             if (player.getTransform().getPosition().x - camera.position.x > CAMERA_OFFSET_X)
                 camera.position.x = player.getTransform().getPosition().x - CAMERA_OFFSET_X;
-            if (player.getTransform().getPosition().y < camera.position.y + CAMERA_OFFSET_Y)
-                camera.position.y = player.getTransform().getPosition().y - CAMERA_OFFSET_Y;
-            else if (player.getTransform().getPosition().y > camera.position.y + 425 && camera.position.y < 0)
-                camera.position.y = player.getTransform().getPosition().y - 425;
-            if (camera.position.y > -10)
-                camera.position.y = 0;
         } else {
             firstLayerComponents.getComponent(ParallaxBackground.class).movable = false;
         }
+
+        if (player.getTransform().getPosition().y < camera.position.y + CAMERA_OFFSET_Y)
+            camera.position.y = player.getTransform().getPosition().y - CAMERA_OFFSET_Y;
+        else if (player.getTransform().getPosition().y > camera.position.y + 425 && camera.position.y < 0)
+            camera.position.y = player.getTransform().getPosition().y - 425;
+        if (camera.position.y > -10)
+            camera.position.y = 0;
 
         playerSupportComponent.onGround = false;
         playerSupportComponent.jumpAvailable = false;
