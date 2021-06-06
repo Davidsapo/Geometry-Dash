@@ -77,6 +77,7 @@ public class LevelEditorScene extends LevelScene {
         levelData.groundImage = firstLayerComponents.getComponent(Ground.class).getGroundImagePath();
         levelData.backgroundColor = firstLayerComponents.getComponent(ParallaxBackground.class).getColor();
         levelData.groundColor = firstLayerComponents.getComponent(Ground.class).getGroundColor();
+        levelData.track = track;
 
         return levelData;
     }

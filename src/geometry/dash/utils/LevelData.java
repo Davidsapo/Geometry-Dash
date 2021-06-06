@@ -17,5 +17,6 @@ public class LevelData implements Serializable {
     public String groundImage;
     public Color backgroundColor;
     public Color groundColor;
+    public String track;
 
 }

@@ -49,7 +49,7 @@ public final class Launcher {
 
         AssetPool.downloadImageToPool("assets\\yellow_mode\\cube.png");
         AssetPool.downloadImageToPool("assets\\yellow_mode\\ship.png");
-        //AssetPool.downloadImageToPool("assets\\yellow_mode\\background.png");
+        AssetPool.downloadImageToPool("assets\\yellow_mode\\background.png");
        //AssetPool.downloadImageToPool("assets\\yellow_mode\\ground.png");
 
         AssetPool.downloadImageToPool("assets\\red_mode\\cube.png");

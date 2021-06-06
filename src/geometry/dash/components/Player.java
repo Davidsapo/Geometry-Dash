@@ -1,6 +1,7 @@
 package geometry.dash.components;
 
 import geometry.dash.engine.Transform;
+import geometry.dash.scenes.LevelRunScene;
 import geometry.dash.scenes.LevelScene;
 import geometry.dash.engine.Component;
 import geometry.dash.engine.GameObject;
@@ -8,6 +9,7 @@ import geometry.dash.engine.KeyDetector;
 import geometry.dash.Window;
 import geometry.dash.strucrures.AssetPool;
 import geometry.dash.utils.CollisionDetectors;
+import geometry.dash.utils.MediaPlayer;
 
 import static geometry.dash.utils.Constants.*;
 
@@ -107,7 +109,7 @@ public class Player extends Component {
         }
     }
 
-    private void normalMode() {
+    public void normalMode() {
         onRocket = false;
         gameObject.getComponent(RigidBody.class).flyMode = false;
         gameObject.setTransform(new Transform(gameObject.getTransform().getPosition(), 50, 50));
@@ -129,9 +131,11 @@ public class Player extends Component {
     }
 
     public void die() {
+        MediaPlayer.player.stop();
         gameObject.getTransform().getPosition().x = PLAYER_SPAWN_X;
         gameObject.getTransform().getPosition().y = PLAYER_SPAWN_Y;
         ((LevelScene) Window.getWindow().getCurrentScene()).getCamera().position.x = 0;
+        ((LevelRunScene) Window.getWindow().getCurrentScene()).startPlay = true;
     }
 
     @Override

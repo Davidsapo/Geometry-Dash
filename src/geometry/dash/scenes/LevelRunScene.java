@@ -6,6 +6,8 @@ import geometry.dash.engine.*;
 import geometry.dash.engine.Component;
 import geometry.dash.strucrures.AssetPool;
 import geometry.dash.utils.LevelData;
+import geometry.dash.utils.MediaPlayer;
+import javafx.scene.media.Media;
 
 import static geometry.dash.utils.Constants.*;
 
@@ -14,13 +16,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 public class LevelRunScene extends LevelScene {
 
+    public boolean startPlay = true;
+
     private Player playerSupportComponent;
     private int cameraRightLimit;
-
     boolean end = false;
     ArrayList<Component> menu = new ArrayList<>();
 
@@ -75,9 +79,15 @@ public class LevelRunScene extends LevelScene {
             new ReplayButton();
             new HomeButton();
             end = true;
+            MediaPlayer.player.stop();
         }
-        for (Component component : menu){
+        for (Component component : menu) {
             component.update();
+        }
+
+        if (startPlay && player.getTransform().getPosition().x >= -50) {
+            MediaPlayer.player.play();
+            startPlay = false;
         }
 
         {
@@ -95,7 +105,7 @@ public class LevelRunScene extends LevelScene {
         firstLayerComponents.draw(graphics2D);
         secondLayerRender.render(graphics2D);
         thirdLayerComponents.draw(graphics2D);
-        for (Component component : menu){
+        for (Component component : menu) {
             component.draw(graphics2D);
         }
     }
@@ -124,6 +134,10 @@ public class LevelRunScene extends LevelScene {
             finish.addComponent(new Sprite("assets/blocks/end_block.png"));
             addGameObject(finish);
             startY -= 50;
+        }
+
+        if (levelData.track != null) {
+            MediaPlayer.init(levelData.track);
         }
     }
 
@@ -180,14 +194,12 @@ public class LevelRunScene extends LevelScene {
             }
 
             if (ready && onButton && !mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
+                MediaPlayer.player.stop();
                 Scene scene = SceneFactory.createScene(2);
                 //scene.init();
                 Window.getWindow().setScene(scene);
             }
-
             ready = onButton && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1;
-
-
         }
 
         public void draw(Graphics2D graphics2D) {
@@ -219,7 +231,7 @@ public class LevelRunScene extends LevelScene {
 
             mouseDetector = Window.getWindow().getMouseDetector();
             transform.translate(xPosButton, yPosButton);
-            transform.scale(0.1,0.1);
+            transform.scale(0.1, 0.1);
             menu.add(this);
         }
 
@@ -234,7 +246,7 @@ public class LevelRunScene extends LevelScene {
         }
     }
 
-    public class ReplayButton extends Component{
+    public class ReplayButton extends Component {
 
         private BufferedImage element;
 
@@ -262,7 +274,7 @@ public class LevelRunScene extends LevelScene {
 
             mouseDetector = Window.getWindow().getMouseDetector();
             transform.translate(xPosButton, yPosButton);
-            transform.scale(0.1,0.1);
+            transform.scale(0.1, 0.1);
             menu.add(this);
 
         }
@@ -270,12 +282,11 @@ public class LevelRunScene extends LevelScene {
         boolean ready = false;
 
         public void update() {
-            if (appearing){
+            if (appearing) {
                 if (transform.getScaleX() < 0.9) {
                     transform.scale(1.1, 1.1);
                 } else appearing = false;
-            }
-            else {
+            } else {
                 int mouseX = mouseDetector.xPos;
                 int mouseY = mouseDetector.yPos;
                 boolean onButton = (mouseX >= xPosButton && mouseX <= xPosButton + width &&
@@ -295,10 +306,13 @@ public class LevelRunScene extends LevelScene {
                 }
 
                 if (ready && onButton && !mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
+                    playerSupportComponent.normalMode();
                     player.getComponent(RigidBody.class).velocity.x = PLAYER_SPEED;
+                    firstLayerComponents.getComponent(ParallaxBackground.class).movable = true;
                     playerSupportComponent.die();
                     menu = new ArrayList<>();
                     end = false;
+                    startPlay = true;
                 }
 
                 ready = onButton && mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1;
@@ -312,7 +326,7 @@ public class LevelRunScene extends LevelScene {
         }
     }
 
-    public class HomeButton extends Component{
+    public class HomeButton extends Component {
 
         private BufferedImage element;
 
@@ -340,7 +354,7 @@ public class LevelRunScene extends LevelScene {
 
             mouseDetector = Window.getWindow().getMouseDetector();
             transform.translate(xPosButton, yPosButton);
-            transform.scale(0.1,0.1);
+            transform.scale(0.1, 0.1);
             menu.add(this);
 
         }
@@ -348,12 +362,11 @@ public class LevelRunScene extends LevelScene {
         boolean ready = false;
 
         public void update() {
-            if (appearing){
+            if (appearing) {
                 if (transform.getScaleX() < 0.9) {
                     transform.scale(1.1, 1.1);
                 } else appearing = false;
-            }
-            else {
+            } else {
                 int mouseX = mouseDetector.xPos;
                 int mouseY = mouseDetector.yPos;
                 boolean onButton = (mouseX >= xPosButton && mouseX <= xPosButton + width &&
@@ -373,6 +386,7 @@ public class LevelRunScene extends LevelScene {
                 }
 
                 if (ready && onButton && !mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
+                    MediaPlayer.player.stop();
                     Scene scene = SceneFactory.createScene(2);
                     //scene.init();
                     Window.getWindow().setScene(scene);

@@ -51,6 +51,8 @@ public class EditorPane extends Component {
 
     private final MouseDetector mouseDetector;
 
+
+
     public EditorPane(String paneImagePath) {
         SpriteSheet buttonsSheet = AssetPool.getSpriteSheet("assets\\buttons\\buttons2.png");
         SMALL_BUTTON_IMAGE = AssetPool.getImage("assets\\buttons\\small_button.png");
@@ -313,8 +315,9 @@ public class EditorPane extends Component {
         String groundImage;
         Color backgroundColor;
         Color groundColor;
+        String track;
 
-        public ModeButton(String buttonImage, String playerImage, String shipImage, String backgroundImage, String groundImage, Color backgroundColor, Color groundColor) {
+        public ModeButton(String buttonImage, String playerImage, String shipImage, String backgroundImage, String groundImage, Color backgroundColor, Color groundColor, String track) {
             this.buttonImage = AssetPool.getImage(buttonImage);
             this.playerImage = playerImage;
             this.shipImage = shipImage;
@@ -322,6 +325,7 @@ public class EditorPane extends Component {
             this.groundImage = groundImage;
             this.backgroundColor = backgroundColor;
             this.groundColor = groundColor;
+            this.track = track;
 
             int buttonIndex = MODE_BUTTON_INDEX++;
 
@@ -348,6 +352,7 @@ public class EditorPane extends Component {
                         button.selected = false;
                     }
                     LevelScene levelScene = (LevelScene) (Window.getWindow().getCurrentScene());
+                    levelScene.track = track;
 
                     Player player = ((LevelScene) (Window.getWindow().getCurrentScene())).getPlayer().getComponent(Player.class);
                     player.setPlayerImagePath(playerImage);

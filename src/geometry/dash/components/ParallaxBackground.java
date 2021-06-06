@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
 
 public class ParallaxBackground extends Component {
 
-    private  String backgroundImage;
+    private String backgroundImage;
     private final Camera camera;
-    private  Color color;
+    private Color color;
     public boolean movable;
     private final int backGroundWidth;
     private final int backGroundHeight;
@@ -21,7 +21,6 @@ public class ParallaxBackground extends Component {
     private int yPos;
     private int xDrawPos;
     private int yDrawPos;
-
 
 
     public ParallaxBackground(String imagePath, Camera camera, Color color, boolean movable) {
@@ -33,7 +32,7 @@ public class ParallaxBackground extends Component {
         backGroundHeight = AssetPool.getImage(backgroundImage).getHeight();
         xPos = 0;
         yPos = SCREEN_HEIGHT - (GROUND_HEIGHT + AssetPool.getImage(backgroundImage).getHeight());
-        xDrawPos = (int)xPos;
+        xDrawPos = (int) xPos;
         yDrawPos = 0;
     }
 
@@ -41,13 +40,13 @@ public class ParallaxBackground extends Component {
     public void update() {
         /*if (camera.position.y < yPos)
             camera.position.y = yPos;*/
-            if (camera.position.x == 0)
-                xPos = 0;
-            int camPos = (int) camera.position.x - (int)xPos;
-            xDrawPos = (camPos / backGroundWidth) * backGroundWidth - camPos;
+        if (camera.position.x == 0)
+            xPos = 0;
+        int camPos = (int) camera.position.x - (int) xPos;
+        xDrawPos = (camPos / backGroundWidth) * backGroundWidth - camPos;
 
-            if (movable && camPos != 0)
-                xPos += BACKGROUND_SPEED;
+        if (movable && camPos != 0)
+            xPos += BACKGROUND_SPEED;
 
     }
 
@@ -55,8 +54,20 @@ public class ParallaxBackground extends Component {
     public void draw(Graphics2D graphics2D) {
         graphics2D.setColor(color);
         graphics2D.fillRect(0, yDrawPos, SCREEN_WIDTH, backGroundHeight);
-        while (xDrawPos <= SCREEN_WIDTH) {
-            graphics2D.drawImage(AssetPool.getImage(backgroundImage), xDrawPos, yDrawPos, null);
+        while (xDrawPos < SCREEN_WIDTH) {
+            BufferedImage image = AssetPool.getImage(backgroundImage);
+            if (xDrawPos < 0) {
+                int xStart = -xDrawPos;
+                image = image.getSubimage(-xDrawPos, 0, image.getWidth() - xStart, image.getHeight());
+                graphics2D.drawImage(image, 0, yDrawPos, null);
+            } else {
+                int imageEnd = xDrawPos + image.getWidth();
+                int imageWidth = image.getWidth();
+                if (imageEnd > SCREEN_WIDTH)
+                    imageWidth -= imageEnd - SCREEN_WIDTH;
+                image = image.getSubimage(0, 0, imageWidth, image.getHeight());
+                graphics2D.drawImage(image, xDrawPos, yDrawPos, null);
+            }
             xDrawPos += backGroundWidth;
         }
     }
@@ -69,7 +80,7 @@ public class ParallaxBackground extends Component {
         this.color = color;
     }
 
-    public String  getBackgroundImage() {
+    public String getBackgroundImage() {
         return backgroundImage;
     }
 

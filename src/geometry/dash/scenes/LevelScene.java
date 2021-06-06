@@ -21,6 +21,7 @@ public abstract class LevelScene implements Scene {
     protected GameObject thirdLayerComponents;
     protected ArrayList<GameObject> gameObjects;
     protected EditorPane editorPane;
+    public String track;
 
     public LevelScene(String name) {
         this.name = name;
@@ -42,7 +43,7 @@ public abstract class LevelScene implements Scene {
         initEditorPane();
     }
 
-    protected void initEditorPane(){
+    protected void initEditorPane() {
         editorPane = (EditorPane) new EditorPane("assets/editor_pane.png").initLayer(1);
         SpriteSheet blocs = AssetPool.getSpriteSheet("assets\\blocks\\blocks.png");
         BoxBounds blockBounds = new BoxBounds(TILE_WIDTH, TILE_HEIGHT);
@@ -62,11 +63,10 @@ public abstract class LevelScene implements Scene {
         editorPane.new BackButton("assets\\buttons\\back_button.png");
         editorPane.new SaveButton("assets\\buttons\\save_button.png");
 
-        editorPane.new ModeButton("assets\\buttons\\blue_button.png","assets\\blue_mod\\cube.png","assets\\blue_mod\\ship.png","assets\\blue_mod\\background.png","assets\\blue_mod\\ground.png", BLUE_BACKGROUND, BLUE_GROUND);
-        editorPane.new ModeButton("assets\\buttons\\green_button.png","assets\\green_mod\\cube.png","assets\\green_mod\\ship.png","assets\\green_mod\\background.png","assets\\green_mod\\ground.png", GREEN_BACKGROUND, GREEN_GROUND);
-        editorPane.new ModeButton("assets\\buttons\\yellow_button.png","assets\\yellow_mode\\cube.png","assets\\yellow_mode\\ship.png","assets\\blue_mod\\background.png","assets\\blue_mod\\ground.png", YELLOW_BACKGROUND, YELLOW_GROUND);
-
-        editorPane.new ModeButton("assets\\buttons\\red_button.png","assets\\red_mode\\cube.png","assets\\red_mode\\ship.png","assets\\red_mode\\background.png","assets\\red_mode\\ground.png", RED_BACKGROUND, RED_GROUND);
+        editorPane.new ModeButton("assets\\buttons\\blue_button.png", "assets\\blue_mod\\cube.png", "assets\\blue_mod\\ship.png", "assets\\blue_mod\\background.png", "assets\\blue_mod\\ground.png", BLUE_BACKGROUND, BLUE_GROUND, "music/track1.mp3");
+        editorPane.new ModeButton("assets\\buttons\\green_button.png", "assets\\green_mod\\cube.png", "assets\\green_mod\\ship.png", "assets\\green_mod\\background.png", "assets\\green_mod\\ground.png", GREEN_BACKGROUND, GREEN_GROUND, "music/track2.mp3");
+        editorPane.new ModeButton("assets\\buttons\\yellow_button.png", "assets\\yellow_mode\\cube.png", "assets\\yellow_mode\\ship.png", "assets\\yellow_mode\\background.png", "assets\\blue_mod\\ground.png", YELLOW_BACKGROUND, YELLOW_GROUND, "music/track3.mp3");
+        editorPane.new ModeButton("assets\\buttons\\red_button.png", "assets\\red_mode\\cube.png", "assets\\red_mode\\ship.png", "assets\\red_mode\\background.png", "assets\\red_mode\\ground.png", RED_BACKGROUND, RED_GROUND, "music/track4.mp3");
 
 
     }
@@ -85,7 +85,7 @@ public abstract class LevelScene implements Scene {
     }
 
 
-    public void deleteObject(GameObject object){
+    public void deleteObject(GameObject object) {
         gameObjects.remove(object);
         secondLayerRender.getGameObjects().remove(object);
     }
