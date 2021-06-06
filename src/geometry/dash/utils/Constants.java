@@ -24,7 +24,7 @@ public final class Constants {
     public static final int TILE_HEIGHT = 50;
 
     public static final int CAMERA_BUTTON_LIMIT = 50;
-    public static final int CAMERA_TOP_LIMIT = -(1024 - GROUND_HEIGHT);
+    public static final int CAMERA_TOP_LIMIT = -400;
     public static final int CAMERA_LEFT_LIMIT = 0;
 
     public static final int GRAVITY = 18;
@@ -36,7 +36,7 @@ public final class Constants {
     public static final double ACCELERATION = 0.85;
     public static final int PLAYER_SPEED = 7;
     public static final double ROTATION = 0.094;
-    public static final int SLEEP_TIME = 16;
+    public static final int SLEEP_TIME = 15;
     public static final int OVERLAP_POSSIBLE = 10;
 
     public static final double BACKGROUND_SPEED = 6.5;
@@ -52,7 +52,6 @@ public final class Constants {
 
     public static final Color RED_BACKGROUND = new Color(255, 0, 0);
     public static final Color RED_GROUND = new Color(205, 0, 0);
-
 
 
     private Constants() {

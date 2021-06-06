@@ -61,6 +61,9 @@ public class LevelRunScene extends LevelScene {
         if (camera.position.y > -10)
             camera.position.y = 0;
 
+        /*if (camera.position.y < CAMERA_TOP_LIMIT)
+            camera.position.y = CAMERA_TOP_LIMIT;*/
+
         playerSupportComponent.onGround = false;
         playerSupportComponent.jumpAvailable = false;
         firstLayerComponents.update();
@@ -92,6 +95,7 @@ public class LevelRunScene extends LevelScene {
 
         {
             if (geometry.dash.Window.getWindow().getKeyDetector().isKeyPressed(KeyEvent.VK_SHIFT)) {
+                MediaPlayer.player.stop();
                 Scene scene = SceneFactory.createScene(1);
                 scene.init();
                 Window.getWindow().setScene(scene);
@@ -399,7 +403,6 @@ public class LevelRunScene extends LevelScene {
 
         public void draw(Graphics2D graphics2D) {
             graphics2D.drawImage(element, transform, null);
-
         }
     }
 

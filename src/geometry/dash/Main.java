@@ -15,6 +15,9 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         JFXPanel fxPanel = new JFXPanel();
+        MediaPlayer.init("music/track1.mp3");
+        MediaPlayer.player.play();
+        MediaPlayer.player.setVolume(0);
 
         Launcher.downloadAssets();
         Window window = Window.getWindow();
@@ -23,7 +26,7 @@ public class Main {
         window.setVisible(true);
         Thread thread = new Thread(window);
         thread.start();
-
+        MediaPlayer.player.stop();
 
         /*String path = "music/track1.mp3";
         Media media = new Media(new File(path).toURI().toString());
