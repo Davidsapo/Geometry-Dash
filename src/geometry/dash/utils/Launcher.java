@@ -83,6 +83,8 @@ public final class Launcher {
         AssetPool.addSpriteSheet(blocks);
 
         AssetPool.readLevelsFromFile();
+
+
     }
 }
 

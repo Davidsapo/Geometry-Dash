@@ -3,13 +3,19 @@ package geometry.dash.scenes;
 import geometry.dash.Window;
 import geometry.dash.components.*;
 import geometry.dash.engine.GameObject;
+import geometry.dash.engine.Transform;
+import geometry.dash.engine.Vector;
 import geometry.dash.strucrures.AssetPool;
 import geometry.dash.utils.Constants;
 import geometry.dash.utils.LevelData;
+import geometry.dash.utils.MediaPlayer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
+
+import static geometry.dash.utils.Constants.GROUND_HEIGHT;
+import static geometry.dash.utils.Constants.SCREEN_HEIGHT;
 
 public class LevelEditorScene extends LevelScene {
 
@@ -82,4 +88,11 @@ public class LevelEditorScene extends LevelScene {
         return levelData;
     }
 
+
+    public void setLevelData(LevelData levelData) {
+        for (GameObject object : levelData.gameObjects) {
+            addGameObject(object);
+        }
+        thirdLayerComponents.getComponent(BlockBuilder.class).setBlockedPositions(levelData.gameObjects);
+    }
 }

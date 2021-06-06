@@ -57,6 +57,8 @@ public class AssetPool {
         } catch (IOException | ClassNotFoundException e) {
             levels = new ArrayList<>();
         }
+        /*if (levels.size()==2)
+            levels.remove(0);*/
     }
 
     public static void writeLevelsToFile() {

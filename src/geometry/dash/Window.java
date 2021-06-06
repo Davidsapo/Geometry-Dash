@@ -97,16 +97,16 @@ public class Window extends JFrame implements Runnable {
             if (sleep < 0)
                 sleep = 0;
             int stop;
-            if (c%2==0)
-                stop = 0;
-            else stop = 1;
+            if (c%3==0)
+                stop = 1;
+            else stop = 0;
             sleep(sleep+stop);
 
 
             long curr = System.nanoTime();
             c++;
             if (TimeUnit.MILLISECONDS.convert(curr - st, TimeUnit.NANOSECONDS) > 1000) {
-                //System.out.println(c);
+                System.out.println(c);
                 c = 0;
                 st = curr;
             }

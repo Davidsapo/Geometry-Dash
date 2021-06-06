@@ -28,7 +28,7 @@ public final class Constants {
     public static final int CAMERA_LEFT_LIMIT = 0;
 
     public static final int GRAVITY = 18;
-    public static final int SHIP_GRAVITY = 5;
+    public static final int SHIP_GRAVITY = 4;
     public static final int SHIP_FORCE = -5;
     public static final double SHIP_ACCELERATION = 0.5;
     public static final int JUMP_FORCE = -13;

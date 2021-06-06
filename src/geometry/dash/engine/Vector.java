@@ -21,8 +21,8 @@ public class Vector implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vector vector = (Vector) o;
-        return x == vector.x &&
-                y == vector.y;
+        return Math.round(x) == Math.round(vector.x) &&
+                Math.round(y) == Math.round(vector.y);
     }
 
     @Override
@@ -33,8 +33,8 @@ public class Vector implements Serializable {
     @Override
     public String toString() {
         return "Vector{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" +  Math.round(x) +
+                ", y=" +  Math.round(y) +
                 '}';
     }
 }

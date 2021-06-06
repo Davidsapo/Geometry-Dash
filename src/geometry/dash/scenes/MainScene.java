@@ -258,8 +258,9 @@ public class MainScene implements Scene {
             }
 
             if (ready && onButton && !mouseDetector.pressed && mouseDetector.button == MouseEvent.BUTTON1) {
-                Scene scene = SceneFactory.createScene(1);
+                LevelEditorScene scene = (LevelEditorScene)SceneFactory.createScene(1);
                 scene.init();
+                scene.setLevelData(AssetPool.levels.get(0));
                 Window.getWindow().setScene(scene);
 
             }

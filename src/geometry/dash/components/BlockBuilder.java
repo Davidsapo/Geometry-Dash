@@ -91,9 +91,16 @@ public class BlockBuilder extends Component {
             int y = ((camYPos + mouseDetector.yPos) / TILE_HEIGHT) * TILE_HEIGHT - camYPos;
 
             Vector vector = new Vector(x + camXPos, y + camera.position.y);
-            if (blockedPositions.containsKey(vector) && vector.y + TILE_HEIGHT <= SCREEN_HEIGHT - GROUND_HEIGHT) {
-                blockedPositions.get(vector).delete();
-                blockedPositions.remove(vector);
+
+            if (vector.y + TILE_HEIGHT <= SCREEN_HEIGHT - GROUND_HEIGHT) {
+                for (Vector v : blockedPositions.keySet()) {
+                    if ((int) v.x == (int) vector.x) {
+                        blockedPositions.get(v).delete();
+                        blockedPositions.remove(v);
+                        return;
+
+                    }
+                }
             }
         }
     }
@@ -110,7 +117,7 @@ public class BlockBuilder extends Component {
                 GameObject block = new GameObject("Block", new Transform(vector, TILE_WIDTH, TILE_HEIGHT));
                 block.addComponent(new Sprite(blockImage));
                 if (bounds != null) {
-                    Bounds newBounds = (Bounds)bounds.copy();
+                    Bounds newBounds = (Bounds) bounds.copy();
                     block.addComponent(newBounds);
                     newBounds.init();
                     block.hasCollision = true;
@@ -134,7 +141,12 @@ public class BlockBuilder extends Component {
         return null;
     }
 
-    public void setBlockedPositions(ArrayList<Vector> blockedPositions) {
-        //this.blockedPositions = blockedPositions;
+    public void setBlockedPositions(ArrayList<GameObject> objects) {
+        for (GameObject gameObject : objects) {
+            this.blockedPositions.put(gameObject.getTransform().getPosition(), gameObject);
+            if (gameObject.getTransform().getPosition().x < 800)
+                System.out.println(gameObject.getTransform().getPosition().x);
+        }
+
     }
 }
