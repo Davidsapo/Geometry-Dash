@@ -57,7 +57,6 @@ public class AssetPool {
         } catch (IOException | ClassNotFoundException e) {
             levels = new ArrayList<>();
         }
-
     }
 
     public static void writeLevelsToFile() {
