@@ -64,8 +64,8 @@ public class ParallaxBackground extends Component {
                 int xStart = -xDrawPos;
                 image = image.getSubimage(-xDrawPos, 0, image.getWidth() - xStart, image.getHeight());
                 graphics2D.drawImage(image, 0, yDrawPos, null);
-                if (camera.position.y < -63)
-                    graphics2D.drawImage(reverse.getSubimage(-xDrawPos, 0, reverse.getWidth() - xStart, reverse.getHeight()), 0, 537, null);
+                //if (camera.position.y < -63)
+                    //graphics2D.drawImage(reverse.getSubimage(-xDrawPos, 0, reverse.getWidth() - xStart, reverse.getHeight()), 0, 537, null);
 
             } else {
                 int imageEnd = xDrawPos + image.getWidth();
@@ -74,8 +74,8 @@ public class ParallaxBackground extends Component {
                     imageWidth -= imageEnd - SCREEN_WIDTH;
                 image = image.getSubimage(0, 0, imageWidth, image.getHeight());
                 graphics2D.drawImage(image, xDrawPos, yDrawPos, null);
-                if (camera.position.y < -63)
-                    graphics2D.drawImage(reverse.getSubimage(0, 0, imageWidth, reverse.getHeight()), xDrawPos, 537, null);
+                //if (camera.position.y < -63)
+                    //graphics2D.drawImage(reverse.getSubimage(0, 0, imageWidth, reverse.getHeight()), xDrawPos, 537, null);
 
             }
             xDrawPos += backGroundWidth;

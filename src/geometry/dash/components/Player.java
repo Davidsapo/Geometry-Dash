@@ -97,6 +97,9 @@ public class Player extends Component {
             } else if (detector == CollisionDetectors.FLY_JUMPER) {
                 jumpAvailable = true;
             } else {
+                if (detector == CollisionDetectors.DIE && object.getComponent(Bounds.class) instanceof TriangleBounds && gameObject.getTransform().getPosition().x - object.getTransform().getPosition().x > 30 && object.getTransform().getPosition().x < gameObject.getTransform().getPosition().x) {
+                    return;
+                }
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

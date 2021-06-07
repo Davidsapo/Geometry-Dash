@@ -23,7 +23,7 @@ public class TriangleBounds extends Bounds {
         if (position == GameElementRotationPosition.BUTTON) {
             points[0] = new Point(width / 2, (50 - height));
             points[1] = new Point(0, 50);
-            points[2] = new Point(50, 50);
+            points[2] = new Point(50, 45);
         } else if (position == GameElementRotationPosition.TOP) {
             points[0] = new Point(width / 2, height);
             points[1] = new Point(0, 0);

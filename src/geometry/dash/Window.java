@@ -97,7 +97,7 @@ public class Window extends JFrame implements Runnable {
             if (sleep < 0)
                 sleep = 0;
             int stop;
-            if (c%3==0)
+            if (c%2==0)
                 stop = 1;
             else stop = 0;
             sleep(sleep+stop);
